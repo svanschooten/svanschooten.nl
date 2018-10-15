@@ -11,6 +11,7 @@ function scrollTo(index) {
         scrolling = false;
     }, config.scrollInterrupt);
     document.title = `${titles[index]} | Stijn van Schooten | svanschooten.nl`;
+    window.location.hash = '#' + titles[index];
     pages[index].scrollIntoView({
         behavior: "smooth"
     });

@@ -36,7 +36,14 @@ const app = new Vue({
 });
 
 async function finishSetup() {
-    console.log("finishing setup");
+    if (window.location.hash && window.location.hash.length > 1) {
+        const index = titles.indexOf(window.location.hash.replace("#", ""));
+        if (index !== -1) {
+            setTimeout(() => {
+                scrollTo(index);
+            }, 300);
+        }
+    }
 }
 
 (async () => {

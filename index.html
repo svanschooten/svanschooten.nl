@@ -78,7 +78,7 @@
                 v-on:mouseleave="getVisibility(false)"
                 v-on:click="setModal(project)"
             >
-                <h2>{{ project.title }}</h2>
+                <h2>{{ project.title }} <span class="title-data">{{ project.created_at }}</span> </h2>
                 <p>{{ project.short }}</p>
             </div>
         </div>
@@ -89,7 +89,7 @@
                 v-on:mouseleave="getVisibility(false)"
                 v-on:click="setModal(post)"
             >
-                <h2>{{ post.title }}</h2>
+                <h2>{{ post.title }} <span class="title-data">{{ post.data }}</span></h2>
                 <p>{{ post.short }}</p>
             </div>
         </div>
@@ -104,7 +104,7 @@
         <div id="modal-content">
             <h1 class="modal-title">
                 {{ modal ? modal.title : '' }}
-                <span class="title-data">{{ modal ? modal.data : '' }}</span>
+                <span class="title-data float-right">{{ modal ? modal.data : '' }}</span>
             </h1>
             <vue-markdown v-bind:source="modal ? modal.content : ''" class="markdown-body"></vue-markdown>
         </div>

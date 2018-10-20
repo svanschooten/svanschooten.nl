@@ -77,6 +77,16 @@ html, body, #app {
     box-shadow: 0 0 2em grey;
 }
 
+.title-data {
+    color: grey;
+    font-size: medium;
+    font-style: italic;
+}
+
+.float-right {
+    float: right;
+}
+
 /* Modal */
 #modal {
     width: 100%;
@@ -132,13 +142,6 @@ html, body, #app {
     width: calc(100% - 4em);
     padding: 2em;
     overflow-y: auto;
-}
-
-#modal .title-data {
-    color: grey;
-    font-size: large;
-    font-style: italic;
-    float: right;
 }
 
 /* Home page */

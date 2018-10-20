@@ -25,7 +25,9 @@ const app = new Vue({
         posts: [],
         projects: [],
         modal: {},
-        visibility: 'closed'
+        visibility: 'closed',
+        page: 'Home',
+        subpage: null
     },
     methods: {
         setModal: (content) => {
@@ -38,6 +40,8 @@ const app = new Vue({
                 }, 300);
             }
             app.modal = content;
+            app.subpage = (content ? content.id : null);
+            setWindowLocationHash();
         },
         getVisibility: (hover) => {
             if (app.visibility === 'open' || app.visibility === 'closing') return;
@@ -48,11 +52,26 @@ const app = new Vue({
 
 async function finishSetup() {
     if (window.location.hash && window.location.hash.length > 1) {
-        const index = titles.indexOf(window.location.hash.replace("#", ""));
-        if (index !== -1) {
+        let hashes = window.location.hash.split("#");
+        if (hashes.length > 1) {
+            const index = titles.indexOf(hashes[1]);
+            if (index !== -1) {
+                setTimeout(() => {
+                    scrollTo(index);
+                }, 300);
+            }
+        }
+        if (hashes.length > 2) {
+            let content = null;
+            const data = app.projects.concat(app.posts);
+            for (let entry of data) {
+                if (entry.id === hashes[2]) {
+                    content = entry;
+                }
+            }
             setTimeout(() => {
-                scrollTo(index);
-            }, 300);
+                app.setModal(content);
+            }, 1000);
         }
     }
 }
@@ -60,14 +79,15 @@ async function finishSetup() {
 (async () => {
     await setupNavigation();
     await setupBanner();
-    await getFirestoreData(firestore, "projects", app.projects, (project) => {
+    app.projects = await getFirestoreData(firestore, "projects", (project) => {
         project.content = atob(project.content);
+        project.created_at = new Date(project.created_at.seconds * 1000).toLocaleDateString();
         project.data = project.type;
         return project;
     });
-    await getFirestoreData(firestore, "blog", app.posts, (post) => {
+    app.posts = await getFirestoreData(firestore, "blog", (post) => {
         post.content = atob(post.content);
-        post.data = new Date(post.created_at.seconds * 1000).toString();
+        post.data = new Date(post.created_at.seconds * 1000).toLocaleDateString();
         return post;
     });
     await finishSetup();

@@ -11,7 +11,7 @@ function scrollTo(index) {
         scrolling = false;
     }, config.scrollInterrupt);
     document.title = `${titles[index]} | Stijn van Schooten | svanschooten.nl`;
-    window.location.hash = '#' + titles[index];
+    app.page = titles[index];
     pages[index].scrollIntoView({
         behavior: "smooth",
         block: "end"
@@ -21,6 +21,7 @@ function scrollTo(index) {
     }
     pageNavigationElements[index].classList.add("active");
     app.setModal(null);
+    setWindowLocationHash();
 }
 
 async function setupNavigation() {
@@ -54,15 +55,27 @@ function getRandom(length) {
     return Math.floor(Math.random() * length);
 }
 
-async function getFirestoreData(fs, collection, array, transform) {
-    fs.collection(collection).orderBy('created_at', 'desc').get().then((querySnapshot) => {
-        querySnapshot.forEach((snapshotData) => {
-            let item = snapshotData.data();
-            item.id = snapshotData.id;
-            if (transform) {
-                item = transform(item);
-            }
-            array.push(item);
-        });
+function getFirestoreData(fs, collection, transform) {
+    return new Promise((resolve, reject) => {
+        fs.collection(collection).orderBy('created_at', 'desc').get().then((querySnapshot) => {
+            const array = [];
+            querySnapshot.forEach((snapshotData) => {
+                let item = snapshotData.data();
+                item.id = snapshotData.id;
+                if (transform) {
+                    item = transform(item);
+                }
+                array.push(item);
+            });
+            resolve(array);
+        }).catch(reject);
     });
+}
+
+function setWindowLocationHash() {
+    let hash = '#' + app.page;
+    if (app.subpage) {
+        hash = hash + '#' + app.subpage;
+    }
+    window.location.hash = hash;
 }

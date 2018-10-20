@@ -63,16 +63,15 @@ async function finishSetup() {
             }
         }
         if (hashes.length > 2) {
-            let content = null;
             const data = app.projects.concat(app.posts);
             for (let entry of data) {
                 if (entry.id === hashes[2]) {
-                    content = entry;
+                    setTimeout(() => {
+                        app.setModal(entry);
+                    }, 1000);
+                    break;
                 }
             }
-            setTimeout(() => {
-                app.setModal(content);
-            }, 1000);
         }
     }
 }

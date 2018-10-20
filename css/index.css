@@ -134,7 +134,7 @@ html, body, #app {
     overflow-y: auto;
 }
 
-#modal .title-date {
+#modal .title-data {
     color: grey;
     font-size: large;
     font-style: italic;

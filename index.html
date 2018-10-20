@@ -98,16 +98,13 @@
         </div>
     </div>
     <div id="modal" v-bind:class="visibility" class="shadow">
-        <div id="modal-controls">
-            <i
-                class="fas fa-chevron-up"
-                v-on:click="setModal(null)"
-            ></i>
+        <div id="modal-controls" v-on:click="setModal(null)">
+            <i class="fas fa-chevron-up"></i>
         </div>
         <div id="modal-content">
             <h1 class="modal-title">
                 {{ modal ? modal.title : '' }}
-                <span class="title-date">{{ modal ? modal.created_at : '' }}</span>
+                <span class="title-data">{{ modal ? modal.data : '' }}</span>
             </h1>
             <vue-markdown v-bind:source="modal ? modal.content : ''" class="markdown-body"></vue-markdown>
         </div>

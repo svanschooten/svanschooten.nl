@@ -55,7 +55,7 @@ function getRandom(length) {
 }
 
 async function getFirestoreData(fs, collection, array, transform) {
-    fs.collection(collection).get().then((querySnapshot) => {
+    fs.collection(collection).orderBy('created_at', 'desc').get().then((querySnapshot) => {
         querySnapshot.forEach((snapshotData) => {
             let item = snapshotData.data();
             item.id = snapshotData.id;

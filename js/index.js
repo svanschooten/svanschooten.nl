@@ -24,19 +24,23 @@ const app = new Vue({
     data: {
         posts: [],
         projects: [],
-        statuses: [],
-        subjects: [],
-        types: [],
         modal: {},
         visibility: 'closed'
     },
     methods: {
         setModal: (content) => {
-            app.visibility = (content ? 'open' : 'closed');
+            if (content) {
+                app.visibility = 'open';
+            } else {
+                app.visibility = 'closing';
+                setTimeout(() => {
+                    app.visibility = 'closed';
+                }, 300);
+            }
             app.modal = content;
         },
         getVisibility: (hover) => {
-            if (app.visibility === 'open') return;
+            if (app.visibility === 'open' || app.visibility === 'closing') return;
             app.visibility = (hover ? 'peek' : 'closed');
         }
     }
@@ -56,16 +60,14 @@ async function finishSetup() {
 (async () => {
     await setupNavigation();
     await setupBanner();
-    await getFirestoreData(firestore, "statuses", app.statuses);
-    await getFirestoreData(firestore, "subjects", app.subjects);
-    await getFirestoreData(firestore, "types", app.types);
     await getFirestoreData(firestore, "projects", app.projects, (project) => {
         project.content = atob(project.content);
+        project.data = project.type;
         return project;
     });
     await getFirestoreData(firestore, "blog", app.posts, (post) => {
         post.content = atob(post.content);
-        post.created_at = new Date(post.created_at.seconds).toString();
+        post.data = new Date(post.created_at.seconds * 1000).toString();
         return post;
     });
     await finishSetup();

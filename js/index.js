@@ -10,6 +10,7 @@ const firebaseConfig = {
 const config = {
     scrollInterrupt: 300,
     bannerFade: 5 * 1000,
+    useScrollNavigation: false,
 };
 
 firebase.initializeApp(firebaseConfig);

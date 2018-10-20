@@ -31,13 +31,15 @@ async function setupNavigation() {
     for (let i = 0; i < pages.length; i++) {
         let page = pages[i];
         let pageNavigationElement = pageNavigationElements[i];
-        page.addEventListener("wheel", (event) => {
-            if (event.deltaY > 0 && i < (pages.length - 1)) {
-                scrollTo(i + 1);
-            } else if (event.deltaY < 0 && i > 0) {
-                scrollTo(i - 1);
-            }
-        });
+        if (config.useScrollNavigation) {
+            page.addEventListener("wheel", (event) => {
+                if (event.deltaY > 0 && i < (pages.length - 1)) {
+                    scrollTo(i + 1);
+                } else if (event.deltaY < 0 && i > 0) {
+                    scrollTo(i - 1);
+                }
+            });
+        }
         pageNavigationElement.addEventListener("click", () => {
             scrollTo(i);
         });

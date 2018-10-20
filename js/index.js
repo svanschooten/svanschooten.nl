@@ -18,20 +18,27 @@ firestore.settings({
     timestampsInSnapshots: true
 });
 
-let posts = [];
-let projects = [];
-let statuses = [];
-let subjects = [];
-let types = [];
 Vue.use(VueMarkdown);
 const app = new Vue({
     el: '#app',
     data: {
-        posts: posts,
-        projects: projects,
-        statuses: statuses,
-        subjects: subjects,
-        types: types
+        posts: [],
+        projects: [],
+        statuses: [],
+        subjects: [],
+        types: [],
+        modal: {},
+        visibility: 'closed'
+    },
+    methods: {
+        setModal: (content) => {
+            app.visibility = (content ? 'open' : 'closed');
+            app.modal = content;
+        },
+        getVisibility: (hover) => {
+            if (app.visibility === 'open') return;
+            app.visibility = (hover ? 'peek' : 'closed');
+        }
     }
 });
 
@@ -49,15 +56,16 @@ async function finishSetup() {
 (async () => {
     await setupNavigation();
     await setupBanner();
-    await getFirestoreData(firestore, "statuses", statuses);
-    await getFirestoreData(firestore, "subjects", subjects);
-    await getFirestoreData(firestore, "types", types);
-    await getFirestoreData(firestore, "projects", projects, (project) => {
+    await getFirestoreData(firestore, "statuses", app.statuses);
+    await getFirestoreData(firestore, "subjects", app.subjects);
+    await getFirestoreData(firestore, "types", app.types);
+    await getFirestoreData(firestore, "projects", app.projects, (project) => {
         project.content = atob(project.content);
         return project;
     });
-    await getFirestoreData(firestore, "blog", posts, (post) => {
+    await getFirestoreData(firestore, "blog", app.posts, (post) => {
         post.content = atob(post.content);
+        post.created_at = new Date(post.created_at.seconds).toString();
         return post;
     });
     await finishSetup();

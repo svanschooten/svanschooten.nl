@@ -13,12 +13,14 @@ function scrollTo(index) {
     document.title = `${titles[index]} | Stijn van Schooten | svanschooten.nl`;
     window.location.hash = '#' + titles[index];
     pages[index].scrollIntoView({
-        behavior: "smooth"
+        behavior: "smooth",
+        block: "end"
     });
     for (let pageNavigationElement of pageNavigationElements) {
         pageNavigationElement.classList.remove("active");
     }
     pageNavigationElements[index].classList.add("active");
+    app.setModal(null);
 }
 
 async function setupNavigation() {

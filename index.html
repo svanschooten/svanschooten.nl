@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,8 @@
     <link rel="icon" href="favicon.ico">
     <title>Home | Stijn van Schooten | svanschooten.nl</title>
     <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/github-markdown.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 <body>
 <noscript>
@@ -60,27 +62,54 @@
     </div>
     <div id="container">
         <div class="page" id="page-home">
-            <div class="shadow" id="page-home-photo"></div>
-            <p>
-                Hi! My name is Stijn van Schooten, and I am always thinking about tech!
-                Having said that, I mostly work with software: designing the architecture, optimizing it, writing it and evaluating it.
-                But I also love working with hardware, be it a mechanical or electrical something, I just love creating stuff.
-            </p>
+            <div class="page-content">
+                <div class="shadow photo"></div>
+                <p>
+                    Hi! My name is Stijn van Schooten, and I am always thinking about tech!
+                    Having said that, I mostly work with software: designing the architecture, optimizing it, writing it and evaluating it.
+                    But I also love working with hardware, be it a mechanical or electrical something, I just love creating stuff.
+                </p>
+            </div>
         </div>
         <div class="page" id="page-projects">
-            <div v-for="project in projects">
-                <h2>{{project.title}}</h2>
-                <vue-markdown>{{ project.content }}</vue-markdown>
+            <div
+                v-for="project in projects"
+                v-on:mouseover="getVisibility(true)"
+                v-on:mouseleave="getVisibility(false)"
+                v-on:click="setModal(project)"
+            >
+                <h2>{{ project.title }}</h2>
+                <p>{{ project.short }}</p>
             </div>
         </div>
         <div class="page" id="page-blog">
-            <div v-for="post in posts">
-                <h2>{{post.title}}</h2>
-                <vue-markdown>{{ post.content }}</vue-markdown>
+            <div
+                v-for="post in posts"
+                v-on:mouseover="getVisibility(true)"
+                v-on:mouseleave="getVisibility(false)"
+                v-on:click="setModal(post)"
+            >
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.short }}</p>
             </div>
         </div>
         <div class="page" id="page-contact">
             <h1>Contact</h1>
+        </div>
+    </div>
+    <div id="modal" v-bind:class="visibility" class="shadow">
+        <div id="modal-controls">
+            <i
+                class="fas fa-chevron-up"
+                v-on:click="setModal(null)"
+            ></i>
+        </div>
+        <div id="modal-content">
+            <h1 class="modal-title">
+                {{ modal ? modal.title : '' }}
+                <span class="title-date">{{ modal ? modal.created_at : '' }}</span>
+            </h1>
+            <vue-markdown v-bind:source="modal ? modal.content : ''" class="markdown-body"></vue-markdown>
         </div>
     </div>
 </div>

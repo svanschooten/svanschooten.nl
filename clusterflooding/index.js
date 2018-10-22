@@ -17,6 +17,7 @@ const app = new Vue({
         lookups: 0,
         comparisons: 0,
         steps: 0,
+        colorScheme: 'cluster',
         global_queue_size: 0,
         local_queue_size: 0,
         max_global_queue_size: 0,
@@ -35,13 +36,14 @@ const app = new Vue({
             for (let i = 0; i < app.height; i++) {
                 let newRow = [];
                 for (let j = 0; j < app.width; j++) {
+                    const label = getRandom(app.labels);
                     newRow.push({
-                        label: getRandom(app.labels),
+                        label: label,
                         cluster: -1,
                         global_queue: false,
                         local_queue: false,
                         row: i,
-                        col: j
+                        col: j,
                     });
                 }
                 newMatrix.push(newRow);
@@ -72,11 +74,25 @@ const app = new Vue({
         pause: () => {
             app.status = PAUSED;
         },
-        isCurrentGlobal: (cell) => {
-            return cell.row === app.current_global_row && cell.col === app.current_global_col;
+        isCurrent: (cell) => {
+            if (cell.row === app.current_global_row && cell.col === app.current_global_col) {
+                return 'currentGlobal';
+            } else if (cell.row === app.current_local_row && cell.col === app.current_local_col) {
+                return 'currentLocal';
+            }
         },
-        isCurrentLocal: (cell) => {
-            return cell.row === app.current_local_row && cell.col === app.current_local_col;
+        getColor: (cell) => {
+            switch (app.colorScheme) {
+                case 'none':
+                    return 'white';
+                case 'cluster':
+                    if (cell.cluster === -1) return 'white';
+                    return 'hsla(' + Math.round((360 / app.clusters) * cell.cluster) + ', 100%, 50%, 50%)';
+                case 'label':
+                    return 'hsla(' + Math.round((360 / app.labels) * cell.label) + ', 100%, 50%, 50%)';
+                default:
+                    return 'white';
+            }
         },
         step: () => {
             // While we still have non-local flooding to do

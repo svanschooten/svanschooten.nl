@@ -13,7 +13,9 @@
             <div class="matrix">
                 <div v-for="row in matrix" class="matrix-row">
                     <div v-for="cell in row" class="matrix-cell"
-                         v-bind:class="{ currentGlobal: isCurrentGlobal(cell), currentLocal: isCurrentLocal(cell) }">
+                         v-bind:class="isCurrent(cell)"
+                         v-bind:style="{ background: getColor(cell) }"
+                    >
                         <div>L {{ cell.label }}</div>
                         <div>C {{ cell.cluster == -1 ? '&nbsp;' : cell.cluster }}</div>
                         <div v-if="cell.local_queue" class="dip localQueue"></div>
@@ -44,6 +46,24 @@
                 <tr>
                     <td>Step time ({{ wait }}ms)</td>
                     <td><input type="range" min="10" max="500" v-model="wait" id="wait"></td>
+                </tr>
+                <tr>
+                    <td>Show no colors</td>
+                    <td>
+                        <input type="radio" name="colorScheme" value="none" v-model="colorScheme">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Show cluster colors</td>
+                    <td>
+                        <input type="radio" name="colorScheme" value="cluster" v-model="colorScheme">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Show label colors</td>
+                    <td>
+                        <input type="radio" name="colorScheme" value="label" v-model="colorScheme">
+                    </td>
                 </tr>
                 <tr>
                     <td>

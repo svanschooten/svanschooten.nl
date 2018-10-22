@@ -100,8 +100,7 @@ const app = new Vue({
             } else {
                 evaluateGlobalCell();
             }
-            app.global_queue_size = global_queue.length;
-            app.local_queue_size = local_queue.length;
+            updateQueueSizes();
         }
     }
 });
@@ -121,8 +120,8 @@ function evaluateGlobalCell() {
         app.clusters = app.clusters + 1; // No label! So we found a new cluster
         cell.cluster = app.clusters; // Label this for the current cluster
         discoverNeighbours(cell); // Add the adjacent fields to the corresponding queue
-        app.local_queue_size = local_queue.length;
     }
+    updateQueueSizes();
 
     setTimeout(() => {
         app.step();
@@ -139,7 +138,7 @@ function evaluateLocalCell() {
     cell.local_queue = false;
     cell.cluster = app.clusters; // Label this for the current cluster
     discoverNeighbours(cell); // Add the adjacent fields to the corresponding queue, again
-    app.local_queue_size = local_queue.length;
+    updateQueueSizes();
 
     setTimeout(() => {
         app.step();
@@ -216,6 +215,13 @@ function discoverAdjacentDirection(eval, cell, direction) {
             global_queue.push(nextCell);
         }
     }
+    updateQueueSizes();
+}
+
+/**
+ * Helper function to update the queue sizes
+ */
+function updateQueueSizes() {
     app.global_queue_size = global_queue.length;
     app.local_queue_size = local_queue.length;
 }

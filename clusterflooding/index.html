@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Cluster flooding test | svanschooten.nl</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="app">
+        <div class="pane matrix">
+            <div class="matrix">
+                <div v-for="row in matrix" class="matrix-row">
+                    <div v-for="cell in row" class="matrix-cell"
+                         v-bind:class="{ currentGlobal: isCurrentGlobal(cell), currentLocal: isCurrentLocal(cell) }">
+                        <div>L: {{ cell.label }}</div>
+                        <div>C: {{ cell.cluster }}</div>
+                        <div v-if="cell.local_queue" class="dip localQueue"></div>
+                        <div v-if="cell.global_queue" class="dip globalQueue"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pane controls">
+            <table>
+                <tr>
+                    <td>Width ({{ width }})</td>
+                    <td><input type="range" min="2" max="20" v-model="width" id="width"></td>
+                </tr>
+                <tr>
+                    <td>Height ({{ height }})</td>
+                    <td><input type="range" min="2" max="20" v-model="height" id="height"></td>
+                </tr>
+                <tr>
+                    <td># of labels ({{ labels }})</td>
+                    <td><input type="range" min="2" max="50" v-model="labels" id="labels"></td>
+                </tr>
+                <tr>
+                    <td>Step time ({{ wait }}ms)</td>
+                    <td><input type="range" min="10" max="500" v-model="wait" id="wait"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button @click="generate()">Generate</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button @click="play()">Play</button>
+                        <button @click="pause()">Pause</button>
+                        <button @click="step()">Step</button>
+                    </td>
+                </tr>
+            </table>
+            <h3>Status: {{ playing ? "Running" : "Paused" }}</h3>
+            <p>Discovered clusters: {{ clusters }}</p>
+            <p>Steps taken: {{ steps }}</p>
+            <p>Lookups performed: {{ lookups }}</p>
+            <p>Comparisons performed: {{ comparisons }}</p>
+            <p>Global queue size: {{ global_queue_size }}</p>
+            <p>Local queue size: {{ local_queue_size }}</p>
+            <h3>Legend:</h3>
+            <p><span class="globalQueue">&nbsp;</span> : In global queue </p>
+            <p><span class="localQueue">&nbsp;</span> : In local queue </p>
+            <p><span class="currentGlobal">&nbsp;</span> : Current cell from global queue </p>
+            <p><span class="currentLocal">&nbsp;</span> : Current cell from local queue </p>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+html, body, #app {
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.pane {
+    width: auto;
+    overflow: auto;
+    padding: 2em;
+}
+
+.pane.controls {
+    width: 20em;
+    overflow: auto;
+    padding: 2em;
+}
+
+.matrix {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.matrix-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    height: 4em;
+}
+
+.matrix-cell {
+    border: 1px solid grey;
+    width: 4em;
+    height: 4em;
+    line-height: 2em;
+    text-align: center;
+    background: white;
+}
+
+.currentLocal {
+    background: lightcoral;
+}
+
+.currentGlobal {
+    background: red;
+}
+
+.dip {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    top: calc(-4em + 1px);
+    left: 1px;
+    border: 0 solid black;
+    border-radius: 10px;
+}
+
+.localQueue {
+    background: #07ee01;
+}
+
+.globalQueue {
+    background: blue;
+}
+

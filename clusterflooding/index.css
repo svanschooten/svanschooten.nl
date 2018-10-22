@@ -16,7 +16,7 @@ html, body, #app {
 }
 
 .pane.controls {
-    width: 20em;
+    width: 25em;
     overflow: auto;
     padding: 2em;
 }
@@ -32,15 +32,17 @@ html, body, #app {
     flex-direction: row;
     justify-content: start;
     height: 4em;
+    margin: 3px;
 }
 
 .matrix-cell {
-    border: 1px solid grey;
+    border: 2px solid black;
     width: 4em;
     height: 4em;
     line-height: 2em;
     text-align: center;
     background: white;
+    margin: 1px;
 }
 
 .currentLocal {
@@ -54,11 +56,19 @@ html, body, #app {
 .dip {
     width: 10px;
     height: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.matrix-cell .dip {
     position: relative;
     top: calc(-4em + 1px);
     left: 1px;
-    border: 0 solid black;
-    border-radius: 10px;
+}
+
+.legend {
+    position: relative;
+    top: 1em;
 }
 
 .localQueue {
@@ -67,5 +77,9 @@ html, body, #app {
 
 .globalQueue {
     background: blue;
+}
+
+.bold {
+    font-weight: bolder;
 }
 

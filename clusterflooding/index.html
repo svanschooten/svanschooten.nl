@@ -9,15 +9,14 @@
 </head>
 <body>
     <div id="app">
-        <div class="pane matrix">
+        <div class="pane">
             <div class="matrix">
                 <div v-for="row in matrix" class="matrix-row">
                     <div v-for="cell in row" class="matrix-cell"
                          v-bind:class="isCurrent(cell)"
-                         v-bind:style="{ background: getColor(cell) }"
                     >
-                        <div>L {{ cell.label }}</div>
-                        <div>C {{ cell.cluster == -1 ? '&nbsp;' : cell.cluster }}</div>
+                        <div v-bind:style="{ background: getColor(cell, true) }">L <span class="bold">{{ cell.label }}</span></div>
+                        <div v-bind:style="{ background: getColor(cell, false) }">C <span class="bold">{{ cell.cluster == -1 ? '&nbsp;' : cell.cluster }}</span></div>
                         <div v-if="cell.local_queue" class="dip localQueue"></div>
                         <div v-if="cell.global_queue" class="dip globalQueue"></div>
                     </div>
@@ -27,25 +26,24 @@
         <div class="pane controls">
             <table>
                 <tr>
-                    <td>Width ({{ width }})</td>
+                    <td>Width</td>
                     <td><input type="range" min="2" max="20" v-model="width" id="width"></td>
+                    <td>({{ width }})</td>
                 </tr>
                 <tr>
-                    <td>Height ({{ height }})</td>
+                    <td>Height</td>
                     <td><input type="range" min="2" max="20" v-model="height" id="height"></td>
+                    <td>({{ height }})</td>
                 </tr>
                 <tr>
-                    <td># of labels ({{ labels }})</td>
+                    <td># of labels</td>
                     <td><input type="range" min="2" max="50" v-model="labels" id="labels"></td>
+                    <td>({{ labels }})</td>
                 </tr>
                 <tr>
                     <td>
                         <button @click="generate()">Generate</button>
                     </td>
-                </tr>
-                <tr>
-                    <td>Step time ({{ wait }}ms)</td>
-                    <td><input type="range" min="10" max="500" v-model="wait" id="wait"></td>
                 </tr>
                 <tr>
                     <td>Show no colors</td>
@@ -66,6 +64,22 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Show split colors</td>
+                    <td>
+                        <input type="radio" name="colorScheme" value="split" v-model="colorScheme">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Color scheme opacity</td>
+                    <td><input type="range" min="0" max="100" v-model="colorOpacity" id="colorOpacity"></td>
+                    <td>({{ colorOpacity }}%)</td>
+                </tr>
+                <tr>
+                    <td>Step time</td>
+                    <td><input type="range" min="10" max="500" v-model="wait" id="wait"></td>
+                    <td>({{ wait }}ms)</td>
+                </tr>
+                <tr>
                     <td>
                         <button @click="play()">Play</button>
                         <button @click="pause()">Pause</button>
@@ -83,10 +97,10 @@
             <h3>Legend:</h3>
             <p>L # : Cell label</p>
             <p>C # : Cell cluster</p>
-            <p><span class="globalQueue">&nbsp;</span> : In global queue </p>
-            <p><span class="localQueue">&nbsp;</span> : In local queue </p>
-            <p><span class="currentGlobal">&nbsp;</span> : Current cell from global queue </p>
-            <p><span class="currentLocal">&nbsp;</span> : Current cell from local queue </p>
+            <div><div class="dip globalQueue legend"></div>&nbsp;&nbsp;&nbsp; : In global queue</div>
+            <div><div class="dip localQueue legend"></div>&nbsp;&nbsp;&nbsp; : In local queue</div>
+            <p><span class="currentGlobal">&nbsp;&nbsp;&nbsp;</span> : Current cell from global queue </p>
+            <p><span class="currentLocal">&nbsp;&nbsp;&nbsp;</span> : Current cell from local queue </p>
         </div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

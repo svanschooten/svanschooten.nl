@@ -8,16 +8,17 @@ const app = new Vue({
     el: '#app',
     data: {
         matrix: [],
-        wait: 300,
+        wait: 100,
         width: 10,
         height: 10,
         labels: 6,
+        colorOpacity: 100,
         clusters: 0,
         status: PAUSED,
         lookups: 0,
         comparisons: 0,
         steps: 0,
-        colorScheme: 'cluster',
+        colorScheme: 'split',
         global_queue_size: 0,
         local_queue_size: 0,
         max_global_queue_size: 0,
@@ -81,15 +82,23 @@ const app = new Vue({
                 return 'currentLocal';
             }
         },
-        getColor: (cell) => {
+        getColor: (cell, topLabel) => {
+            function labelColor() {
+                return 'hsla(' + Math.round((360 / app.labels) * cell.label) + ', 100%, 50%, ' + app.colorOpacity + '%)';
+            }
+            function clusterColor() {
+                if (cell.cluster === -1) return 'white';
+                return 'hsla(' + Math.round((360 / app.clusters) * cell.cluster) + ', 100%, 50%, ' + app.colorOpacity + '%)';
+            }
             switch (app.colorScheme) {
                 case 'none':
                     return 'white';
                 case 'cluster':
-                    if (cell.cluster === -1) return 'white';
-                    return 'hsla(' + Math.round((360 / app.clusters) * cell.cluster) + ', 100%, 50%, 50%)';
+                    return clusterColor();
                 case 'label':
-                    return 'hsla(' + Math.round((360 / app.labels) * cell.label) + ', 100%, 50%, 50%)';
+                    return labelColor();
+                case 'split':
+                    return topLabel ? labelColor() : clusterColor();
                 default:
                     return 'white';
             }

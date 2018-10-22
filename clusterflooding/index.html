@@ -37,13 +37,13 @@
                     <td><input type="range" min="2" max="50" v-model="labels" id="labels"></td>
                 </tr>
                 <tr>
-                    <td>Step time ({{ wait }}ms)</td>
-                    <td><input type="range" min="10" max="500" v-model="wait" id="wait"></td>
-                </tr>
-                <tr>
                     <td>
                         <button @click="generate()">Generate</button>
                     </td>
+                </tr>
+                <tr>
+                    <td>Step time ({{ wait }}ms)</td>
+                    <td><input type="range" min="10" max="500" v-model="wait" id="wait"></td>
                 </tr>
                 <tr>
                     <td>
@@ -58,11 +58,11 @@
             <p>Steps taken: {{ steps }}</p>
             <p>Lookups performed: {{ lookups }}</p>
             <p>Comparisons performed: {{ comparisons }}</p>
-            <p>Global queue size: {{ global_queue_size }}</p>
-            <p>Local queue size: {{ local_queue_size }}</p>
+            <p>Global queue size: {{ global_queue_size }} (max {{ max_global_queue_size }})</p>
+            <p>Local queue size: {{ local_queue_size }} (max {{ max_local_queue_size }})</p>
             <h3>Legend:</h3>
             <p>L # : Cell label</p>
-            <p>c # : Cell cluster</p>
+            <p>C # : Cell cluster</p>
             <p><span class="globalQueue">&nbsp;</span> : In global queue </p>
             <p><span class="localQueue">&nbsp;</span> : In local queue </p>
             <p><span class="currentGlobal">&nbsp;</span> : Current cell from global queue </p>

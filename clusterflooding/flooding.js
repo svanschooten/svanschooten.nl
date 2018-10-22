@@ -16,7 +16,6 @@ function evaluateGlobalCell() {
     if (app.status !== PLAYING) return;
     let cell = global_queue.pop();
     setCurrentGlobalCell(cell);
-    app.steps = app.steps + 1;
     cell.global_queue = false;
     if (!isClustered(cell)) { // Oh it has no label!
         app.clusters = app.clusters + 1; // No label! So we found a new cluster
@@ -128,6 +127,8 @@ function discoverAdjacentDirection(eval, cell, direction) {
 function updateQueueSizes() {
     app.global_queue_size = global_queue.length;
     app.local_queue_size = local_queue.length;
+    app.max_global_queue_size = Math.max(app.max_global_queue_size, app.global_queue_size);
+    app.max_local_queue_size = Math.max(app.max_local_queue_size, app.local_queue_size);
 }
 
 /**

@@ -19,6 +19,8 @@ const app = new Vue({
         steps: 0,
         global_queue_size: 0,
         local_queue_size: 0,
+        max_global_queue_size: 0,
+        max_local_queue_size: 0,
         current_global_col: -1,
         current_global_row: -1,
         current_local_col: -1,
@@ -56,6 +58,8 @@ const app = new Vue({
             app.current_global_row = -1;
             app.current_local_col = -1;
             app.current_local_row = -1;
+            app.max_global_queue_size = 0;
+            app.max_local_queue_size = 0;
         },
         play: () => {
             app.status = PLAYING;
@@ -92,6 +96,7 @@ const app = new Vue({
             } else {
                 evaluateGlobalCell();
             }
+            app.steps = app.steps + 1;
             updateQueueSizes();
         }
     }

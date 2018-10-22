@@ -14,8 +14,8 @@
                 <div v-for="row in matrix" class="matrix-row">
                     <div v-for="cell in row" class="matrix-cell"
                          v-bind:class="{ currentGlobal: isCurrentGlobal(cell), currentLocal: isCurrentLocal(cell) }">
-                        <div>L: {{ cell.label }}</div>
-                        <div>C: {{ cell.cluster }}</div>
+                        <div>L {{ cell.label }}</div>
+                        <div>C {{ cell.cluster == -1 ? '&nbsp;' : cell.cluster }}</div>
                         <div v-if="cell.local_queue" class="dip localQueue"></div>
                         <div v-if="cell.global_queue" class="dip globalQueue"></div>
                     </div>
@@ -53,7 +53,7 @@
                     </td>
                 </tr>
             </table>
-            <h3>Status: {{ playing ? "Running" : "Paused" }}</h3>
+            <h3>Status: {{ status }}</h3>
             <p>Discovered clusters: {{ clusters }}</p>
             <p>Steps taken: {{ steps }}</p>
             <p>Lookups performed: {{ lookups }}</p>
@@ -61,6 +61,8 @@
             <p>Global queue size: {{ global_queue_size }}</p>
             <p>Local queue size: {{ local_queue_size }}</p>
             <h3>Legend:</h3>
+            <p>L # : Cell label</p>
+            <p>c # : Cell cluster</p>
             <p><span class="globalQueue">&nbsp;</span> : In global queue </p>
             <p><span class="localQueue">&nbsp;</span> : In local queue </p>
             <p><span class="currentGlobal">&nbsp;</span> : Current cell from global queue </p>

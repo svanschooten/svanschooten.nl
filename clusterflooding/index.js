@@ -1,8 +1,11 @@
-// Setup some constants (the four orthogonal directions)
+// Setup some constants
 const UP = "up";
 const DOWN = "down";
 const LEFT = "left";
 const RIGHT = "right";
+const PAUSED = "paused";
+const PLAYING = "playing";
+const DONE = "done";
 
 // Setup some global stuff so we don't have the hassle of updating queues and stuff
 let global_queue = [],
@@ -18,7 +21,7 @@ const app = new Vue({
         height: 10,
         labels: 6,
         clusters: 0,
-        playing: false,
+        status: PAUSED,
         lookups: 0,
         comparisons: 0,
         steps: 0,
@@ -31,7 +34,7 @@ const app = new Vue({
     },
     methods: {
         generate: () => {
-            app.playing = false;
+            app.status = PAUSED;
             global_queue = [];
             local_queue = [];
             let newMatrix = [];
@@ -56,14 +59,14 @@ const app = new Vue({
             app.global_queue_size = 0;
             app.local_queue_size = 0;
             app.steps = 0;
-            app.playing = false;
+            app.status = PAUSED;
             app.current_global_col = -1;
             app.current_global_row = -1;
             app.current_local_col = -1;
             app.current_local_row = -1;
         },
         play: () => {
-            app.playing = true;
+            app.status = PLAYING;
             // Select a random starting point
             if (global_queue.length === 0) {
                 global_queue.push(app.matrix[getRandom(app.height)][getRandom(app.width)]);
@@ -71,7 +74,7 @@ const app = new Vue({
             app.step();
         },
         pause: () => {
-            app.playing = false;
+            app.status = PAUSED;
         },
         isCurrentGlobal: (cell) => {
             return cell.row === app.current_global_row && cell.col === app.current_global_col;
@@ -84,9 +87,11 @@ const app = new Vue({
             if (global_queue.length === 0 && local_queue.length === 0) {
                 // Random sample to see if not completed running yet
                 if (app.matrix[getRandom(app.height)][getRandom(app.width)].cluster === -1) {
-                    global_queue.push(app.matrix[getRandom(app.height)][getRandom(app.width)]);
+                    let cell = app.matrix[getRandom(app.height)][getRandom(app.width)];
+                    cell.global_queue = true;
+                    global_queue.push(cell);
                 } else {
-                    app.playing = false;
+                    app.status = DONE;
                     return;
                 }
             }
@@ -107,6 +112,7 @@ app.generate();
  * Evaluates the next global cell, and labels it if needed, then discovers the adjacent cells.
  */
 function evaluateGlobalCell() {
+    if (app.status !== PLAYING) return;
     let cell = global_queue.pop();
     setCurrentGlobalCell(cell);
     app.steps = app.steps + 1;
@@ -118,17 +124,16 @@ function evaluateGlobalCell() {
         app.local_queue_size = local_queue.length;
     }
 
-    if (app.playing) {
-        setTimeout(() => {
-            app.step();
-        }, app.wait);
-    }
+    setTimeout(() => {
+        app.step();
+    }, app.wait);
 }
 
 /**
  * Evaluate the next local cell to see if more flooding is needed.
  */
 function evaluateLocalCell() {
+    if (app.status !== PLAYING) return;
     let cell = local_queue.pop();
     setCurrentLocalCell(cell);
     cell.local_queue = false;
@@ -136,11 +141,9 @@ function evaluateLocalCell() {
     discoverNeighbours(cell); // Add the adjacent fields to the corresponding queue, again
     app.local_queue_size = local_queue.length;
 
-    if (app.playing) {
-        setTimeout(() => {
-            app.step();
-        }, app.wait);
-    }
+    setTimeout(() => {
+        app.step();
+    }, app.wait);
 }
 
 /**

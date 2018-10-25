@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="favicon.ico">
     <title>Home | Stijn van Schooten | svanschooten.nl</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/github-markdown.css"/>
+    <link rel="stylesheet" href="css/loader.css"/>
+    <link rel="stylesheet" href="css/modal.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 <body>
@@ -16,7 +19,7 @@
         continue.</strong>
 </noscript>
 <div style="
-    z-index: 9999;
+    z-index: 50;
     position: absolute;
     background: orange;
     transform: rotate(-45deg);
@@ -30,6 +33,20 @@
     line-height: 2em;
 ">
     UNDER CONSTRUCTION
+</div>
+<div id="loader">
+    <div class="outer-circle first">
+        <div class="circle-1"></div>
+    </div>
+    <div class="outer-circle second">
+        <div class="circle-2"></div>
+    </div>
+    <div class="outer-circle third">
+        <div class="circle-3"></div>
+    </div>
+    <div class="outer-circle fourth">
+        <div class="circle-4"></div>
+    </div>
 </div>
 <div id="app">
     <div id="header" class="shadow">
@@ -72,7 +89,7 @@
             </div>
         </div>
         <div class="page" id="page-projects">
-            <div
+            <div class="item"
                 v-for="project in projects"
                 v-on:mouseover="getVisibility(true)"
                 v-on:mouseleave="getVisibility(false)"
@@ -83,7 +100,7 @@
             </div>
         </div>
         <div class="page" id="page-blog">
-            <div
+            <div class="item"
                 v-for="post in posts"
                 v-on:mouseover="getVisibility(true)"
                 v-on:mouseleave="getVisibility(false)"
@@ -94,7 +111,16 @@
             </div>
         </div>
         <div class="page" id="page-contact">
-            <h1>Contact</h1>
+            <div class="page-content">
+                <div class="social">
+                    <a href="https://www.linkedin.com/in/svanschooten/" ><h1><i class="fab fa-linkedin-in"></i> Linkedin</h1></a>
+                    <a href="https://github.com/svanschooten" ><h1><i class="fab fa-github"></i> Github</h1></a>
+                    <a href="https://maketek.nl" ><h1><i class="far fa-paper-plane"></i> MakeTek</h1></a>
+                    <a href="https://twitter.com/sschooten" ><h1><i class="fab fa-twitter"></i> Twitter</h1></a>
+                    <a href="https://www.instagram.com/stijnvanschooten/" ><h1><i class="fab fa-instagram"></i> Instagram</h1></a>
+                    <a href="https://www.facebook.com/svsoke" ><h1><i class="fab fa-facebook-f"></i> Facebook</h1></a>
+                </div>
+            </div>
         </div>
     </div>
     <div id="modal" v-bind:class="visibility" class="shadow">

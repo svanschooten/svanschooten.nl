@@ -59,13 +59,15 @@ async function finishSetup() {
             if (index !== -1) {
                 setTimeout(() => {
                     scrollTo(index);
-                }, 300);
+                }, 500);
             }
         }
         if (hashes.length > 2) {
             const data = app.projects.concat(app.posts);
+            console.log(data);
             for (let entry of data) {
                 if (entry.id === hashes[2]) {
+                    console.log("Haa");
                     setTimeout(() => {
                         app.setModal(entry);
                     }, 1000);
@@ -77,8 +79,8 @@ async function finishSetup() {
 }
 
 (async () => {
-    await setupNavigation();
     await setupBanner();
+    await setupNavigation();
     app.projects = await getFirestoreData(firestore, "projects", (project) => {
         project.content = atob(project.content);
         project.created_at = new Date(project.created_at.seconds * 1000).toLocaleDateString();
@@ -91,4 +93,9 @@ async function finishSetup() {
         return post;
     });
     await finishSetup();
+    document.getElementById("loader").classList.add("done");
+    setTimeout(() => {
+        const elem = document.getElementById("loader");
+        elem.parentNode.removeChild(elem);
+    }, 1000);
 })();

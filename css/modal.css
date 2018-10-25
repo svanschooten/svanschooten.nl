@@ -1,0 +1,56 @@
+/* Modal */
+#modal {
+    width: 100%;
+    position: absolute;
+    top: 101%;
+    left: 0;
+    right: 0;
+    height: calc(100% - 12.5em);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    transition: all .3s ease-in-out;
+    background: white;
+}
+
+#modal.open {
+    top: 12.5em;
+    transition: all .3s ease-in-out;
+}
+
+#modal.peek {
+    top: calc(100% - 3em);
+    transition: all .3s ease-in-out;
+}
+
+#modal .fa-chevron-up {
+    width: 100%;
+    text-align: center;
+    line-height: 2em;
+    cursor: pointer;
+    transform: rotate(0deg);
+    transition: all .3s ease-in-out;
+}
+
+#modal.open .fa-chevron-up {
+    transform: rotate(180deg);
+    transition: all .3s ease-in-out;
+}
+
+#modal.open .fa-chevron-up:hover {
+    transform: rotate(160deg);
+    transition: all .3s ease-in-out;
+}
+
+#modal-controls {
+    height: calc(2em - 1px);
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+}
+
+#modal-content {
+    height: calc(100% - 6em);
+    width: calc(100% - 4em);
+    padding: 2em;
+    overflow-y: auto;
+}

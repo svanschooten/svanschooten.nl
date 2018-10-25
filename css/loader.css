@@ -1,0 +1,134 @@
+
+
+#loader {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#ffeaea, #717171);
+    z-index: 100;
+    transition: all .5s ease-in-out;
+    transition-delay: .5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loader.done {
+    bottom: 100%;
+}
+
+@keyframes rotation {
+    from {
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinning {
+    from {
+        -ms-transform: rotateY(0deg);
+        -webkit-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+    to {
+        -ms-transform: rotateY(360deg);
+        -webkit-transform: rotateY(360deg);
+        transform: rotateY(360deg);
+    }
+}
+
+.outer-circle {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.outer-circle {
+    opacity: 100;
+    transition: opacity .3s ease-in-out;
+}
+
+.done .outer-circle {
+    opacity: 0;
+}
+
+.outer-circle.first {
+    -webkit-animation: 7s rotation infinite linear;
+    -o-animation: 7s rotation infinite linear;
+    animation: 7s rotation infinite linear;
+}
+
+.circle-1 {
+    border: 1.5em solid #464646;
+    border-radius: 10em;
+    width: 15em;
+    height: 15em;
+    -webkit-animation: 10s spinning infinite linear;
+    -o-animation: 10s spinning infinite linear;
+    animation: 10s spinning infinite linear;
+}
+
+.outer-circle.second {
+    -webkit-animation: 5s rotation infinite linear;
+    -o-animation: 5s rotation infinite linear;
+    animation: 5s rotation infinite linear;
+}
+
+.circle-2 {
+    border: 1em solid #464646;
+    border-radius: 10em;
+    width: 10em;
+    height: 10em;
+    -webkit-animation: 7s spinning infinite linear;
+    -o-animation: 7s spinning infinite linear;
+    animation: 7s spinning infinite linear;
+}
+
+.outer-circle.third {
+    -webkit-animation: 3s rotation infinite linear;
+    -o-animation: 3s rotation infinite linear;
+    animation: 3s rotation infinite linear;
+}
+
+.circle-3 {
+    border: .75em solid #464646;
+    border-radius: 10em;
+    width: 6em;
+    height: 6em;
+    -webkit-animation: 5s spinning infinite linear;
+    -o-animation: 5s spinning infinite linear;
+    animation: 5s spinning infinite linear;
+}
+
+.outer-circle.fourth {
+    -webkit-animation: 10s rotation infinite linear;
+    -o-animation: 10s rotation infinite linear;
+    animation: 10s rotation infinite linear;
+}
+
+.circle-4 {
+    border: .75em solid #464646;
+    border-radius: 10em;
+    background: #464646;
+    width: 2em;
+    height: 2em;
+    -webkit-animation: 7s spinning infinite linear;
+    -o-animation: 7s spinning infinite linear;
+    animation: 7s spinning infinite linear;
+}

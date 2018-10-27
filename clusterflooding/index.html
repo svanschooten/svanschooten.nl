@@ -75,6 +75,18 @@
                     <td>({{ colorOpacity }}%)</td>
                 </tr>
                 <tr>
+                    <td>Use breadth-first search</td>
+                    <td>
+                        <input type="radio" name="searchMode" value="breadth" v-model="searchMode">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Use depth-first search</td>
+                    <td>
+                        <input type="radio" name="searchMode" value="" v-model="searchMode">
+                    </td>
+                </tr>
+                <tr>
                     <td>Step time</td>
                     <td><input type="range" min="10" max="500" v-model="wait" id="wait"></td>
                     <td>({{ wait }}ms)</td>

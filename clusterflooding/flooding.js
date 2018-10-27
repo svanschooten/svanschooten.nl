@@ -14,7 +14,7 @@ let global_queue = [],
  */
 function evaluateGlobalCell() {
     if (app.status !== PLAYING) return;
-    let cell = global_queue.pop();
+    let cell = app.searchMode === "breadth" ? global_queue.shift() : global_queue.pop();
     setCurrentGlobalCell(cell);
     cell.global_queue = false;
     if (!isClustered(cell)) { // Oh it has no label!

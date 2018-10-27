@@ -19,6 +19,7 @@ const app = new Vue({
         comparisons: 0,
         steps: 0,
         colorScheme: 'split',
+        searchMode: "breadth",
         global_queue_size: 0,
         local_queue_size: 0,
         max_global_queue_size: 0,

@@ -107,6 +107,23 @@ html, body, #app {
 
 .social a {
     text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    transition: all .3s ease-in-out;
+}
+
+.social a:hover {
+    text-shadow: -2px 4px 2px #000;
+    transition: all .3s ease-in-out;
+}
+
+.social a i {
+    transform: rotate(0deg);
+    transition: all .3s ease-in-out;
+}
+
+.social a:hover i {
+    transform: rotate(15deg);
+    transition: all .3s ease-in-out;
 }
 
 /* Items */

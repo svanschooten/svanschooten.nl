@@ -18,22 +18,6 @@
     <strong>We're sorry but my website doesn't work properly without JavaScript enabled. Please enable it to
         continue.</strong>
 </noscript>
-<div style="
-    z-index: 50;
-    position: absolute;
-    background: orange;
-    transform: rotate(-45deg);
-    left: -5em;
-    top: 5em;
-    width: 20em;
-    height: 2em;
-    text-align: center;
-    font-weight: bolder;
-    font-size: larger;
-    line-height: 2em;
-">
-    UNDER CONSTRUCTION
-</div>
 <div id="loader">
     <div class="outer-circle first">
         <div class="circle-1"></div>
@@ -57,12 +41,12 @@
                     Home
                 </div>
             </div>
-            <div class="page-navigation-element">
-                <div class="pne-bubble"></div>
-                <div class="pne-title">
-                    Projects
-                </div>
-            </div>
+            <!--<div class="page-navigation-element">-->
+                <!--<div class="pne-bubble"></div>-->
+                <!--<div class="pne-title">-->
+                    <!--Projects-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="page-navigation-element">
                 <div class="pne-bubble"></div>
                 <div class="pne-title">
@@ -88,17 +72,17 @@
                 </p>
             </div>
         </div>
-        <div class="page" id="page-projects">
-            <div class="item"
-                v-for="project in projects"
-                v-on:mouseover="getVisibility(true)"
-                v-on:mouseleave="getVisibility(false)"
-                v-on:click="setModal(project)"
-            >
-                <h2>{{ project.title }} <span class="title-data">{{ project.created_at }}</span> </h2>
-                <p>{{ project.short }}</p>
-            </div>
-        </div>
+        <!--<div class="page" id="page-projects">-->
+            <!--<div class="item"-->
+                <!--v-for="project in projects"-->
+                <!--v-on:mouseover="getVisibility(true)"-->
+                <!--v-on:mouseleave="getVisibility(false)"-->
+                <!--v-on:click="setModal(project)"-->
+            <!--&gt;-->
+                <!--<h2>{{ project.title }} <span class="title-data">{{ project.created_at }}</span> </h2>-->
+                <!--<p>{{ project.short }}</p>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="page" id="page-blog">
             <div class="item"
                 v-for="post in posts"

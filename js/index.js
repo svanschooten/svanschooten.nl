@@ -81,12 +81,12 @@ async function finishSetup() {
 (async () => {
     await setupBanner();
     await setupNavigation();
-    app.projects = await getFirestoreData(firestore, "projects", (project) => {
-        project.content = atob(project.content);
-        project.created_at = new Date(project.created_at.seconds * 1000).toLocaleDateString();
-        project.data = project.type;
-        return project;
-    });
+    // app.projects = await getFirestoreData(firestore, "projects", (project) => {
+    //     project.content = atob(project.content);
+    //     project.created_at = new Date(project.created_at.seconds * 1000).toLocaleDateString();
+    //     project.data = project.type;
+    //     return project;
+    // });
     app.posts = await getFirestoreData(firestore, "blog", (post) => {
         post.content = atob(post.content);
         post.data = new Date(post.created_at.seconds * 1000).toLocaleDateString();

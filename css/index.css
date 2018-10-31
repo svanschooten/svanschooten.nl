@@ -170,4 +170,5 @@ html, body, #app {
 #page-home p {
     width: calc(75% - 22em);
     float: left;
+    min-width: 50%;
 }

@@ -1,0 +1,26 @@
+---
+import { Code } from 'astro:components';
+import ClusterFlooding from '../components/cluster-flooding/ClusterFlooding.vue';
+import source from '../components/cluster-flooding/flooding.js?raw';
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Cluster flooding"
+  description="An interactive visualisation of cluster identification with a flooding algorithm."
+>
+  <a class="back" href="/blog/flooding-based-cluster-identification/">← About this algorithm</a>
+  <h1>Cluster flooding</h1>
+  <p>
+    Generate a grid of random labels and watch the algorithm flood each cluster of orthogonally
+    connected cells.
+  </p>
+
+  <ClusterFlooding client:only="vue" />
+  <noscript><p>This visualisation needs JavaScript to run.</p></noscript>
+
+  <div class="prose">
+    <h2 id="source">The commented source</h2>
+    <Code code={source} lang="js" />
+  </div>
+</Base>

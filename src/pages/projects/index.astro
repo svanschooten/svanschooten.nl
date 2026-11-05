@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import EntryList from '../../components/EntryList.astro';
+import Base from '../../layouts/Base.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<Base title="Projects">
+  <h1>Projects</h1>
+  <EntryList entries={projects} />
+</Base>

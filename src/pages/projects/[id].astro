@@ -1,21 +1,13 @@
 ---
-import { getCollection, render } from 'astro:content';
-import PostDate from '../../components/PostDate.astro';
-import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import Entry from '../../layouts/Entry.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
-  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+  return projects.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
 }
 
-const { project } = Astro.props;
-const { Content } = await render(project);
+const { entry } = Astro.props;
 ---
 
-<Base title={project.data.title} description={project.data.description}>
-  <article>
-    <h1>{project.data.title}</h1>
-    {project.data.period ?? <PostDate date={project.data.date} />}
-    <Content />
-  </article>
-</Base>
+<Entry entry={entry} backLabel="Projects" />

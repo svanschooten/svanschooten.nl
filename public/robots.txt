@@ -1,0 +1,7 @@
+# Everything here is public and meant to be indexed.
+User-agent: *
+Allow: /
+
+# Written by @astrojs/sitemap at build time. The index is the entry point; it
+# points at the numbered sitemap files alongside it.
+Sitemap: https://svanschooten.nl/sitemap-index.xml

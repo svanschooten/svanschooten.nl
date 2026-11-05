@@ -1,14 +1,26 @@
 ---
+import { getCollection } from 'astro:content';
+import EntryList from '../components/EntryList.astro';
 import Base from '../layouts/Base.astro';
+
+const recentPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 ---
 
 <Base title="Home">
-  <h1>Stijn van Schooten</h1>
-  <img src="/images/me.jpg" alt="Stijn van Schooten" width="200" />
-  <p>
-    Hi! My name is Stijn van Schooten, and I am always thinking about tech! Having said that, I
-    mostly work with software: designing the architecture, optimizing it, writing it and evaluating
-    it. But I also love working with hardware, be it a mechanical or electrical something, I just
-    love creating stuff.
-  </p>
+  <div class="intro">
+    <img src="/images/me.jpg" alt="Portrait of Stijn van Schooten" width="250" height="285" />
+    <div>
+      <h1>Hi, I'm Stijn.</h1>
+      <p>
+        I am always thinking about tech! Having said that, I mostly work with software: designing
+        the architecture, optimizing it, writing it and evaluating it. But I also love working with
+        hardware, be it a mechanical or electrical something, I just love creating stuff.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Recent posts</h2>
+  <EntryList entries={recentPosts} />
 </Base>

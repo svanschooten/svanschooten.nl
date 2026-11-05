@@ -1,11 +1,18 @@
 ---
 interface Props {
   date: Date;
+  period?: string;
 }
 
-const { date } = Astro.props;
+const { date, period } = Astro.props;
 ---
 
-<time datetime={date.toISOString().slice(0, 10)}>
-  {date.toLocaleDateString('en-GB', { dateStyle: 'long', timeZone: 'UTC' })}
-</time>
+{
+  period ? (
+    <span class="meta">{period}</span>
+  ) : (
+    <time class="meta" datetime={date.toISOString().slice(0, 10)}>
+      {date.toLocaleDateString('en-GB', { dateStyle: 'medium', timeZone: 'UTC' })}
+    </time>
+  )
+}

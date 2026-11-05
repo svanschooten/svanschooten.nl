@@ -10,7 +10,13 @@ const links = [
 
 <Base title="Contact">
   <h1>Contact</h1>
-  <ul>
-    {links.map(({ label, href }) => <li><a href={href}>{label}</a></li>)}
+  <ul class="links">
+    {
+      links.map(({ label, href }) => (
+        <li>
+          <a href={href}>{label}</a>
+        </li>
+      ))
+    }
   </ul>
 </Base>

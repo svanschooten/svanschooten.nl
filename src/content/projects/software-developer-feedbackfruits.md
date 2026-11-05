@@ -1,8 +1,9 @@
 ---
-title: "Developer @ FeedbackFruits"
+title: "Software Developer @ FeedbackFruits"
 description: "My time as developer for a custom software quality and statistics platform at FeedbackFruits,  a new startup here in Delft."
 type: "work"
-date: 2013-10-04
+date: 2013-10-01
+period: "Oct 2013 – Jul 2014"
 ---
 
 I started working at [FeedbackFruits](http://feedbackfruits.com) by coincidence, a roommate heard from a friend that they needed developers. So I came by and had a pretty good discussion, followed by the offering of a contract. I've worked there for nearly a year, started with setting up a [Jenkins](https://jenkins-ci.org/) server voor continuous testing and building. After this was done we set up a [Zabbix](http://www.zabbix.com/) server to gather statistics from the servers. With the basics done, quality assurance was next in line.

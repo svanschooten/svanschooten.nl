@@ -6,7 +6,9 @@ const schema = z.object({
   title: z.string(),
   description: z.string(),
   type: z.string(),
+  // `date` sorts the lists; `period` is shown instead of it when set.
   date: z.coerce.date(),
+  period: z.string().optional(),
 });
 
 const blog = defineCollection({
@@ -16,8 +18,7 @@ const blog = defineCollection({
 
 const projects = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/projects' }),
-  // `date` sorts the list; `period` is shown instead of it when set.
-  schema: schema.extend({ period: z.string().optional() }),
+  schema,
 });
 
 export const collections = { blog, projects };

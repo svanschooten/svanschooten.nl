@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import PostDate from '../../components/PostDate.astro';
+import EntryList from '../../components/EntryList.astro';
 import Base from '../../layouts/Base.astro';
 
 const projects = (await getCollection('projects')).sort(
@@ -10,15 +10,5 @@ const projects = (await getCollection('projects')).sort(
 
 <Base title="Projects">
   <h1>Projects</h1>
-  {
-    projects.map((project) => (
-      <article>
-        <h2>
-          <a href={`/projects/${project.id}/`}>{project.data.title}</a>
-        </h2>
-        {project.data.period ?? <PostDate date={project.data.date} />}
-        <p>{project.data.description}</p>
-      </article>
-    ))
-  }
+  <EntryList entries={projects} />
 </Base>

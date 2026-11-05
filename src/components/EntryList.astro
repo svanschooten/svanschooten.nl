@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostDate from './PostDate.astro';
+
+interface Props {
+  entries: CollectionEntry<'blog' | 'projects'>[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ul class="entries">
+  {
+    entries.map((entry) => (
+      <li class="entry">
+        <PostDate date={entry.data.date} period={entry.data.period} />
+        <div>
+          <h2>
+            <a href={`/${entry.collection}/${entry.id}/`}>{entry.data.title}</a>
+          </h2>
+          <p>{entry.data.description}</p>
+        </div>
+      </li>
+    ))
+  }
+</ul>

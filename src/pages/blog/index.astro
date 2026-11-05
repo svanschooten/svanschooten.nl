@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import PostDate from '../../components/PostDate.astro';
+import EntryList from '../../components/EntryList.astro';
 import Base from '../../layouts/Base.astro';
 
 const posts = (await getCollection('blog')).sort(
@@ -10,15 +10,5 @@ const posts = (await getCollection('blog')).sort(
 
 <Base title="Blog">
   <h1>Blog</h1>
-  {
-    posts.map((post) => (
-      <article>
-        <h2>
-          <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-        </h2>
-        <PostDate date={post.data.date} />
-        <p>{post.data.description}</p>
-      </article>
-    ))
-  }
+  <EntryList entries={posts} />
 </Base>
